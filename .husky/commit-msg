@@ -3,3 +3,5 @@
 
 yarn commitlint --edit $1
 yarn devmoji --edit
+yarn commitlint --edit $1
+yarn devmoji --edit

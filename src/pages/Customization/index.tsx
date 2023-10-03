@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import ContentHeader from '../../components/ContentHeader'
 
@@ -6,13 +6,12 @@ import { useGlobalReducer } from '../../store/reducers/globalReducer/useGlobalRe
 
 import Layout from '../../components/Layout'
 
-import { ButtonFile, Container, Content, FileUploadContainer } from './style'
-
-export interface SelectedFile {
-	name: string
-	size: number
-	type: string
-}
+import { Container, Content } from './style'
+import MotherBoard from '../../components/Customization/MotherBoard'
+import Processor from '../../components/Customization/Processor'
+import Memory from '../../components/Customization/Memory'
+import VideoCard from '../../components/Customization/VideoCard'
+import HDSSD from '../../components/Customization/HDSSD'
 
 const Customization: React.FC = () => {
 	const { setNotification } = useGlobalReducer()
@@ -22,9 +21,13 @@ const Customization: React.FC = () => {
 		lineColor: '#4E41F0'
 	}
 
-	const handleCustomization = () => {
-		setNotification('Customização Iniciada!', 'success')
-	}
+	const [selectedMotherboard, setSelectedMotherboard] = useState<string>('')
+	const [memory, setMemory] = useState<number | null>(null)
+	const [processor, setProcessor] = useState<string | null>(null)
+	const [hdssd, setHDSSD] = useState<string | null>(null)
+	const [videoCard, setVideoCard] = useState<string | null>(null)
+
+	useEffect(() => {}, [])
 
 	return (
 		<Layout>
@@ -34,24 +37,21 @@ const Customization: React.FC = () => {
 					lineColor={pageData.lineColor}
 				></ContentHeader>
 
-				<FileUploadContainer>
-					<>
-						<ButtonFile onClick={handleCustomization}>
-							Iniciar Customização
-						</ButtonFile>
-					</>
-				</FileUploadContainer>
-
 				<Content>
-					{/* {transactionFiltered.map((item) => (
-						<HistoryFinanceCard
-							key={item.id}
-							tagColor={'#4E41F0'}
-							title={item.description}
-							subtitle={item.seller}
-							amount={formatCurrency(Number(item.value))}
-						/>
-					))} */}
+					<MotherBoard onChange={setSelectedMotherboard} />
+					<Processor
+						onChange={setProcessor}
+						selectedMotherboard={selectedMotherboard}
+					/>
+					<Memory
+						onChange={setMemory}
+						selectedMotherboard={selectedMotherboard}
+					/>
+					<VideoCard
+						onChange={setVideoCard}
+						selectedMotherboard={selectedMotherboard}
+					/>
+					<HDSSD onChange={setHDSSD} selectedProcessor={processor} />
 				</Content>
 			</Container>
 		</Layout>

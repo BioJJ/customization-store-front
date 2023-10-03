@@ -1,0 +1,47 @@
+{
+	"PlacaMae": {
+		"Razor": {
+			"Processador": ["i3", "i5"],
+			"MemoriaMinima": 8
+		},
+		"AMD": {
+			"Processador": ["i7", "i9"],
+			"MemoriaMinima": 8
+		},
+		"Intel": {
+			"Processador": ["i3", "i5", "i7", "i9"],
+			"MemoriaMinima": 16
+		}
+	},
+	"PlacaVideo": {
+		"NVIDIA GTX 1660": {
+			"TipoPlacaMae": "Razor"
+		},
+		"AMD Radeon RX 580": {
+			"TipoPlacaMae": "AMD"
+		},
+		"NVIDIA RTX 3070": {
+			"TipoPlacaMae": "Intel"
+		}
+	},
+	"Processador": {
+		"i9": {
+			"HDSSDMinimo": 512
+		}
+	},
+	"Memoria": [8, 16, 32],
+	"HDSSD": [
+		{
+			"description": "256GB",
+			"value": 256
+		},
+		{
+			"description": "1TB",
+			"value": 1000
+		},
+		{
+			"description": "512GB",
+			"value": 512
+		}
+	]
+}

@@ -3,10 +3,6 @@ import { NavigateFunction } from 'react-router-dom'
 
 import { DashboardRoutesEnum } from '../routes/app.routes'
 import { useGlobalReducer } from '../store/reducers/globalReducer/useGlobalReducer'
-import {
-	// ERROR_INVALID_PASSWORD,
-	ERROR_USER_CREATE
-} from '../constants/errorStatus'
 
 // import { User } from '../types/User'
 import { LoginRoutesEnum } from '../routes/auth.routes'

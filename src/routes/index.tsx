@@ -11,7 +11,6 @@ const Routes: React.FC = () => {
 		(rootState: RootState) => !!rootState.globalReducer.user?.id
 	)
 
-	console.log(isLogged)
 	return <BrowserRouter>{isLogged ? <App /> : <Auth />}</BrowserRouter>
 }
 

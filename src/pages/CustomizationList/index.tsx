@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 import { ButtonInit, Container, Content } from './style'
 import { CustomizationRoutesEnum } from '../Customization/routes'
 import HistoryFinanceCard from '../../components/Dashboard/HistoryFinanceCard'
-import formatCurrency from '../../utils/formatCurrency'
 import { useCustomization } from './hooks/useCustomization'
 
 const CustomizationList: React.FC = () => {
@@ -42,10 +41,10 @@ const CustomizationList: React.FC = () => {
 						Iniciar Customização
 					</ButtonInit>
 
-					{products.map((item) => (
+					{products?.map((item) => (
 						<HistoryFinanceCard
 							key={Math.random()}
-							tagColor={item.status == 'completo' ? '#4E41F0' : '#f70202'}
+							tagColor={item.status == 'Completo' ? '#4E41F0' : '#f70202'}
 							title={item.description}
 							subtitle={item.user.name}
 							amount={item.status}

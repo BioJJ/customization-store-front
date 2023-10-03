@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import regras from '../../../../regras.json'
 import { MemoryContainer } from './style'
+import SelectInput from '../../SelectInput'
 
 interface MemoryProps {
 	selectedMotherboard: string | null
@@ -13,21 +14,17 @@ const Memory: React.FC<MemoryProps> = ({ selectedMotherboard, onChange }) => {
 
 	useEffect(() => {
 		if (selectedMotherboard) {
-			// Obtenha a memória mínima necessária com base na placa mãe selecionada
 			const memoryMinimumRequired =
 				regras.PlacaMae[selectedMotherboard].MemoriaMinima
 
-			// Obtenha as opções de memória com base na memória mínima necessária
 			const memoryOptionsAvailable = regras.Memoria
 
 			const optionsMemoryFiltered = memoryOptionsAvailable.filter(
 				(memoryOption) => memoryOption >= memoryMinimumRequired
 			)
 
-			// Atualize o estado com as opções de memória
 			setOptionsMemory(optionsMemoryFiltered)
 
-			// Se a memória atual não estiver na lista de opções, redefina-a
 			if (!optionsMemoryFiltered.includes(memory || 0)) {
 				setMemory(optionsMemoryFiltered[0])
 				onChange(optionsMemoryFiltered[0])
@@ -44,13 +41,13 @@ const Memory: React.FC<MemoryProps> = ({ selectedMotherboard, onChange }) => {
 	return (
 		<MemoryContainer>
 			<h3>Memória:</h3>
-			<select value={memory || ''} onChange={handleMemoryChange}>
-				{optionsMemory.map((opcao) => (
-					<option key={opcao} value={opcao}>
-						{opcao} GB
-					</option>
-				))}
-			</select>
+
+			<SelectInput
+				options={optionsMemory}
+				onChange={handleMemoryChange}
+				defaultValue={memory as number}
+				type={true}
+			/>
 		</MemoryContainer>
 	)
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import regras from '../../../../regras.json'
 import { ProcessorContainer } from './style'
+import SelectInput from '../../SelectInput'
 
 interface ProcessadorProps {
 	selectedMotherboard: string | null
@@ -36,13 +37,12 @@ const Processor: React.FC<ProcessadorProps> = ({
 	return (
 		<ProcessorContainer>
 			<h3>Processador:</h3>
-			<select value={processor || ''} onChange={handleProcessadorChange}>
-				{processorList.map((opcao) => (
-					<option key={opcao} value={opcao}>
-						{opcao}
-					</option>
-				))}
-			</select>
+
+			<SelectInput
+				options={processorList}
+				onChange={handleProcessadorChange}
+				defaultValue={processor as string}
+			/>
 		</ProcessorContainer>
 	)
 }

@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		}
 	}
 
-	const addUser = async (user: UserType) => {
+	const addUser = (user: UserType) => {
 		setLoading(true)
 
 		setUser((prevQueue) => [...prevQueue, user])

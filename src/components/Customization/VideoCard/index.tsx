@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import rules from '../../../../regras.json'
 import { VideoCardContainer } from './style'
+import SelectInput from '../../SelectInput'
 
 interface VideoCardProps {
 	selectedMotherboard: string | null
@@ -43,13 +44,12 @@ const VideoCard: React.FC<VideoCardProps> = ({
 	return (
 		<VideoCardContainer>
 			<h3>Placa de Vídeo:</h3>
-			<select value={videoCard || ''} onChange={handlePlacaVideoChange}>
-				{videoCardOptions.map((opcao) => (
-					<option key={opcao} value={opcao}>
-						{opcao}
-					</option>
-				))}
-			</select>
+
+			<SelectInput
+				options={videoCardOptions}
+				onChange={handlePlacaVideoChange}
+				defaultValue={videoCard as string}
+			/>
 		</VideoCardContainer>
 	)
 }

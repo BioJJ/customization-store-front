@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ContentHeader from '../../components/ContentHeader'
 
 import happyImg from '../../assets/happy.svg'
@@ -11,31 +11,46 @@ import WalletBox from '../../components/Dashboard/WalletBox'
 import MessageBox from '../../components/Dashboard/MessageBox'
 import PieChartBox from '../../components/Dashboard/PieChartBox'
 import Layout from '../../components/Layout'
+import { CustomizationUse } from '../../contexts/customization'
+import { Product } from '../../types/Product'
 
 const Dashboard: React.FC = () => {
+	const { productsList } = CustomizationUse()
+	const [productFilter, setProductFilter] = useState<Product[]>([])
+
+	useEffect(() => {
+		setProductFilter(productsList)
+	}, [productsList, productFilter])
+
 	const totalPendents = useMemo(() => {
-		const total: number = 2
+		const list = productFilter.filter(
+			(product) => product.status === 'Pendente'
+		)
+
+		const total: number = list.length
 
 		return total
-	}, [])
+	}, [productFilter])
 
 	const totalComplete = useMemo(() => {
-		const total: number = 10
+		const list = productFilter.filter(
+			(product) => product.status === 'Completo'
+		)
+		const total: number = list.length
 
 		return total
-	}, [])
+	}, [productFilter])
 
 	const totalBalance = useMemo(() => {
-		return totalComplete - totalPendents
+		return totalComplete + totalPendents
 	}, [totalComplete, totalPendents])
 
 	const message = useMemo(() => {
 		if (totalBalance < 0) {
 			return {
 				title: 'Que triste!',
-				description: 'Neste mês, você gastou mais do que deveria.',
-				footerText:
-					'Verifique seus gastos e tente cortar algumas coisas desnecessárias.',
+				description: 'Neste mês, você não bateu a meta.',
+				footerText: 'Verifique as Customizações pendentes, e finalize-a.',
 				icon: sadImg
 			}
 		} else if (totalComplete === 0 && totalPendents === 0) {

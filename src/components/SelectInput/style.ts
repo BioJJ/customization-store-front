@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-	> select {
-		padding: 7px 10px;
-		border-radius: 5px;
+export const Container = styled.div``
 
-		margin-left: 7px;
-	}
+export const Select = styled.select`
+	width: 100%;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	outline: none;
 `

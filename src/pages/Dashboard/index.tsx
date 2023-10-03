@@ -7,9 +7,9 @@ import grinningImg from '../../assets/grinning.svg'
 import opsImg from '../../assets/ops.svg'
 
 import { Container, Content } from './style'
-import WalletBox from '../../components/WalletBox'
-import MessageBox from '../../components/MessageBox'
-import PieChartBox from '../../components/PieChartBox'
+import WalletBox from '../../components/Dashboard/WalletBox'
+import MessageBox from '../../components/Dashboard/MessageBox'
+import PieChartBox from '../../components/Dashboard/PieChartBox'
 import Layout from '../../components/Layout'
 
 const Dashboard: React.FC = () => {

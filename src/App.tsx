@@ -10,7 +10,8 @@ import { useNotification } from './hooks/useNotification'
 
 import { loginRoutes } from './pages/Signin/routes'
 import { dashboardRoutes } from './pages/Dashboard/routes'
-import { listComponents } from './pages/Customization/routes'
+import { listCustomization } from './pages/Customization/routes'
+import { listComponents } from './pages/CustomizationList/routes'
 
 import { ThemeProvider } from 'styled-components'
 import { useTheme } from './hooks/theme'
@@ -20,6 +21,7 @@ import GlobalStyles from './styles/styles'
 const routes: RouteObject[] = [...loginRoutes]
 const routesLoggedIn: RouteObject[] = [
 	...dashboardRoutes,
+	...listCustomization,
 	...listComponents
 ].map((route) => ({
 	...route

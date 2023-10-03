@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 
-import dolarImg from '../../assets/dolar.svg'
-import arrowUpImg from '../../assets/arrow-up.svg'
-import arrowDownImg from '../../assets/arrow-down.svg'
+import dolarImg from '../../../assets/dolar.svg'
+import arrowUpImg from '../../../assets/arrow-up.svg'
+import arrowDownImg from '../../../assets/arrow-down.svg'
 
 import { Container } from './style'
 

@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
 
 import { useGlobalReducer } from '../../../store/reducers/globalReducer/useGlobalReducer'
+import { Product } from '../../../types/Product'
+import { CustomizationUse } from '../../../contexts/customization'
 
 export const useCustomization = () => {
 	const [loading, setLoading] = useState(false)
 	const { setNotification } = useGlobalReducer()
 
-	useEffect(() => {}, [])
+	const { productsList } = CustomizationUse()
 
-	const newCustomization = async (): Promise<void> => {
-		setLoading(true)
+	const [products, setProducts] = useState<Product[]>([])
 
-		setNotification('Customização Realizado com sucesso!', 'success')
-
-		setLoading(false)
-	}
+	useEffect(() => {
+		setProducts(productsList)
+	}, [productsList])
 
 	return {
-		loading,
-		newCustomization
+		products,
+		loading
 	}
 }

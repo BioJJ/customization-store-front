@@ -4,28 +4,26 @@ import { NavigateFunction } from 'react-router-dom'
 import { DashboardRoutesEnum } from '../routes/app.routes'
 import { useGlobalReducer } from '../store/reducers/globalReducer/useGlobalReducer'
 
-// import { User } from '../types/User'
 import { LoginRoutesEnum } from '../routes/auth.routes'
 import { UserType } from '../types/UserType'
+import { AuthUse } from '../contexts/auth'
 
 export const useRequests = () => {
 	const [loading, setLoading] = useState(false)
-	const { setNotification, setUser, user } = useGlobalReducer()
+	const { setNotification } = useGlobalReducer()
+
+	const { addUser, LogIn } = AuthUse()
 
 	const authRequest = async (
 		navigate: NavigateFunction,
-		body: UserType
+		email: string,
+		password: string
 	): Promise<void> => {
 		setLoading(true)
 
-		console.log(body)
+		LogIn(email, password)
 
-		setUser({
-			id: user?.id,
-			name: user?.name,
-			email: user?.email,
-			password: user?.password
-		})
+		setNotification('Login Realizado com sucesso!', 'success')
 
 		navigate(DashboardRoutesEnum.FIRST_SCREEN)
 
@@ -38,16 +36,7 @@ export const useRequests = () => {
 	): Promise<void> => {
 		setLoading(true)
 
-		console.log(body)
-
-		setUser({
-			id: Math.random(),
-			name: body.name,
-			email: body.email,
-			password: body.password
-		})
-
-		console.log(user)
+		addUser(body)
 
 		setNotification(
 			'Cadastro Realizado com sucesso!',
@@ -55,7 +44,6 @@ export const useRequests = () => {
 			'realize o login!!'
 		)
 		navigate(LoginRoutesEnum.LOGIN)
-		// setNotification(ERROR_USER_CREATE, 'error')
 
 		setLoading(false)
 	}

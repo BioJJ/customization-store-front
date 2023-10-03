@@ -5,11 +5,12 @@ import Toggle from '../Toggle'
 import { useTheme } from '../../hooks/theme'
 
 import { Container, Profile, Welcome, UserName } from './style'
-import { useGlobalReducer } from '../../store/reducers/globalReducer/useGlobalReducer'
+import { AuthUse } from '../../contexts/auth'
 
 const MainHeader: React.FC = () => {
 	const { toggleTheme, theme } = useTheme()
-	const { user } = useGlobalReducer()
+
+	const { userLogged } = AuthUse()
 
 	const [darkTheme, setDarkTheme] = useState(() =>
 		theme.title === 'dark' ? true : false
@@ -36,7 +37,7 @@ const MainHeader: React.FC = () => {
 
 			<Profile>
 				<Welcome>Olá, {emoji} </Welcome>
-				<UserName>{user?.name} </UserName>
+				<UserName>{userLogged?.name} </UserName>
 			</Profile>
 		</Container>
 	)

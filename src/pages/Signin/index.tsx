@@ -33,10 +33,7 @@ const SignIn: React.FC = () => {
 	}
 
 	const handleLogin = () => {
-		authRequest(navigate, {
-			email,
-			password
-		})
+		authRequest(navigate, email, password)
 	}
 
 	const handleNewUser = () => {

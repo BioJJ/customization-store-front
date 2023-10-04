@@ -26,7 +26,7 @@ import { AuthUse } from '../../contexts/auth'
 import Input from '../../components/Input'
 import ProgressBar from '../../components/Customization/ProgressBar'
 
-const Customization: React.FC = () => {
+const CustomizationCreate: React.FC = () => {
 	const { setNotification } = useGlobalReducer()
 	const { userLogged } = AuthUse()
 
@@ -95,6 +95,7 @@ const Customization: React.FC = () => {
 	const addProduct = (status: string) => {
 		if (description) {
 			AddCustomization({
+				id: Math.random(),
 				status,
 				user: userLogged,
 				customization,
@@ -204,4 +205,4 @@ const Customization: React.FC = () => {
 	)
 }
 
-export default Customization
+export default CustomizationCreate

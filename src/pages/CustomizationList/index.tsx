@@ -43,7 +43,7 @@ const CustomizationList: React.FC = () => {
 
 					{products?.map((item) => (
 						<HistoryFinanceCard
-							key={Math.random()}
+							key={item.id}
 							tagColor={item.status == 'Completo' ? '#4E41F0' : '#f70202'}
 							title={item.description}
 							subtitle={item.user.name}

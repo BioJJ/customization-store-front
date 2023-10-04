@@ -7,7 +7,6 @@ import { useGlobalReducer } from '../../store/reducers/globalReducer/useGlobalRe
 import Layout from '../../components/Layout'
 
 import {
-	ButtonFileCancel,
 	Container,
 	Content,
 	ContentButton,
@@ -25,8 +24,9 @@ import { CustomizationUse } from '../../contexts/customization'
 import { Customization } from '../../types/Customization'
 import { AuthUse } from '../../contexts/auth'
 import Input from '../../components/Input'
+import ProgressBar from '../../components/Customization/ProgressBar'
 
-const Customization: React.FC = () => {
+const CustomizationCreate: React.FC = () => {
 	const { setNotification } = useGlobalReducer()
 	const { userLogged } = AuthUse()
 
@@ -49,6 +49,39 @@ const Customization: React.FC = () => {
 		{} as Customization
 	)
 
+	const [currentStep, setCurrentStep] = useState(0)
+
+	const steps = [
+		{
+			component: <MotherBoard onChange={setMotherboard} />,
+			label: 'Motherboard'
+		},
+		{
+			component: (
+				<Processor onChange={setProcessor} selectedMotherboard={motherboard} />
+			),
+			label: 'Processor'
+		},
+		{
+			component: (
+				<Memory onChange={setMemory} selectedMotherboard={motherboard} />
+			),
+			label: 'Memory'
+		},
+		{
+			component: (
+				<VideoCard onChange={setVideoCard} selectedMotherboard={motherboard} />
+			),
+			label: 'Video Card'
+		},
+		{
+			component: <HDSSD onChange={setHDSSD} selectedProcessor={processor} />,
+			label: 'HD/SSD'
+		}
+	]
+
+	const currentStepComponent = steps[currentStep].component
+
 	useEffect(() => {
 		setCustomization({
 			motherboard,
@@ -62,6 +95,7 @@ const Customization: React.FC = () => {
 	const addProduct = (status: string) => {
 		if (description) {
 			AddCustomization({
+				id: Math.random(),
 				status,
 				user: userLogged,
 				customization,
@@ -88,6 +122,18 @@ const Customization: React.FC = () => {
 		addProduct('Pendente')
 	}
 
+	const handleNextStep = () => {
+		if (currentStep < steps.length - 1) {
+			setCurrentStep(currentStep + 1)
+		}
+	}
+
+	const handlePreviousStep = () => {
+		if (currentStep > 0) {
+			setCurrentStep(currentStep - 1)
+		}
+	}
+
 	return (
 		<Layout>
 			<Container>
@@ -97,6 +143,7 @@ const Customization: React.FC = () => {
 				></ContentHeader>
 
 				<Content>
+					<ProgressBar currentStep={currentStep} totalSteps={steps.length} />
 					<DescriptionContainer>
 						<DescriptionTitle>Descrição da Personalização</DescriptionTitle>
 						<Input
@@ -107,17 +154,29 @@ const Customization: React.FC = () => {
 						/>
 					</DescriptionContainer>
 
-					<MotherBoard onChange={setMotherboard} />
-					<Processor
-						onChange={setProcessor}
-						selectedMotherboard={motherboard}
-					/>
-					<Memory onChange={setMemory} selectedMotherboard={motherboard} />
-					<VideoCard
-						onChange={setVideoCard}
-						selectedMotherboard={motherboard}
-					/>
-					<HDSSD onChange={setHDSSD} selectedProcessor={processor} />
+					{description && currentStepComponent && (
+						<ContentButton>
+							<SizeButton>
+								<Button
+									loading={loading}
+									type="dashed"
+									onClick={handleNextStep}
+								>
+									Next
+								</Button>
+							</SizeButton>
+
+							<SizeButton>
+								<Button
+									loading={loading}
+									type="dashed"
+									onClick={handlePreviousStep}
+								>
+									Back
+								</Button>
+							</SizeButton>
+						</ContentButton>
+					)}
 
 					<ContentButton>
 						<SizeButton>
@@ -146,4 +205,4 @@ const Customization: React.FC = () => {
 	)
 }
 
-export default Customization
+export default CustomizationCreate

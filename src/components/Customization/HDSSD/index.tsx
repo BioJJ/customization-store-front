@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import regras from '../../../../regras.json'
 import { HDSSDContainer } from './style'
+import SelectInput from '../../SelectInput'
 
 interface HDSSDProps {
 	selectedProcessor: string | null
@@ -50,13 +51,14 @@ const HDSSD: React.FC<HDSSDProps> = ({ selectedProcessor, onChange }) => {
 	return (
 		<HDSSDContainer>
 			<h3>HD/SSD:</h3>
-			<select value={hdssd || ''} onChange={handleHDSSDChange}>
-				{optionsHDSSD.map((option) => (
-					<option key={option.description} value={option.description}>
-						{option.description} ({option.value} GB)
-					</option>
-				))}
-			</select>
+
+			<SelectInput
+				options={optionsHDSSD.map((option) => {
+					return option.description
+				})}
+				onChange={handleHDSSDChange}
+				defaultValue={hdssd as string}
+			/>
 		</HDSSDContainer>
 	)
 }

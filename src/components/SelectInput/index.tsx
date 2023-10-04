@@ -1,29 +1,30 @@
 import React from 'react'
 
-import { Container } from './style'
+import { Container, Select } from './style'
 
 interface ISelectInputProps {
-	options: {
-		value: string | number
-		label: string | number
-	}[]
+	options: string[] | number[]
 	onChange(event: React.ChangeEvent<HTMLSelectElement>): void | undefined
 	defaultValue?: string | number
+	type?: boolean
 }
 
 const SelectInput: React.FC<ISelectInputProps> = ({
 	options,
 	onChange,
-	defaultValue
+	defaultValue,
+	type
 }) => (
 	<Container>
-		<select onChange={onChange} defaultValue={defaultValue}>
+		<Select onChange={onChange} defaultValue={defaultValue}>
 			{options.map((option) => (
-				<option key={option.value} value={option.value}>
-					{option.label}
+				<option key={option} value={option}>
+					{type && <> {option} GB</>}
+
+					{!type && <> {option}</>}
 				</option>
 			))}
-		</select>
+		</Select>
 	</Container>
 )
 

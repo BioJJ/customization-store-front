@@ -4,31 +4,17 @@ export const Container = styled.div``
 
 export const Content = styled.main``
 
-export const FileUploadContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	margin-bottom: 40px;
+export const DescriptionContainer = styled.div`
+	background-color: #f2f2f2;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 20px;
 `
+export const DescriptionTitle = styled.h3``
 
 export const UploadInput = styled.input`
 	display: none;
-`
-
-export const Label = styled.label`
-	background-color: ${(props) => props.theme.colors.gray};
-	color: ${(props) => props.theme.colors.secondary};
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
-`
-
-export const ButtonFile = styled.button`
-	background-color: ${(props) => props.theme.colors.gray};
-	color: ${(props) => props.theme.colors.secondary};
-	padding: 10px 20px;
-	border-radius: 5px;
-	cursor: pointer;
 `
 
 export const ButtonFileCancel = styled.button`
@@ -39,15 +25,18 @@ export const ButtonFileCancel = styled.button`
 	cursor: pointer;
 `
 
-export const SelectedFileName = styled.p`
-	margin-top: 10px;
-	margin-bottom: 10px;
+export const ContentButton = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
 `
 
-export const FileUploadButton = styled.div`
+export const SizeButton = styled.div`
+	border: 1px solid #0000ff;
+	width: 200px;
+	margin: 30px;
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex-direction: row;
-	align-items: start;
-	margin-bottom: 40px;
-	gap: 20px;
 `

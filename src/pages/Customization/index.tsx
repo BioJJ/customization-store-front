@@ -6,7 +6,15 @@ import { useGlobalReducer } from '../../store/reducers/globalReducer/useGlobalRe
 
 import Layout from '../../components/Layout'
 
-import { Container, Content } from './style'
+import {
+	ButtonFileCancel,
+	Container,
+	Content,
+	ContentButton,
+	DescriptionContainer,
+	DescriptionTitle,
+	SizeButton
+} from './style'
 import MotherBoard from '../../components/Customization/MotherBoard'
 import Processor from '../../components/Customization/Processor'
 import Memory from '../../components/Customization/Memory'
@@ -89,12 +97,16 @@ const Customization: React.FC = () => {
 				></ContentHeader>
 
 				<Content>
-					<Input
-						type="text"
-						placeholder="Descrição da configuração"
-						required
-						onChange={handleDescription}
-					/>
+					<DescriptionContainer>
+						<DescriptionTitle>Descrição da Personalização</DescriptionTitle>
+						<Input
+							type="text"
+							placeholder="Descrição da configuração"
+							required
+							onChange={handleDescription}
+						/>
+					</DescriptionContainer>
+
 					<MotherBoard onChange={setMotherboard} />
 					<Processor
 						onChange={setProcessor}
@@ -107,23 +119,27 @@ const Customization: React.FC = () => {
 					/>
 					<HDSSD onChange={setHDSSD} selectedProcessor={processor} />
 
-					<Button
-						loading={loading}
-						type="primary"
-						margin="10px 0px 10px 0px"
-						onClick={handleFinishCustomization}
-					>
-						Finalizar
-					</Button>
+					<ContentButton>
+						<SizeButton>
+							<Button
+								loading={loading}
+								type="primary"
+								onClick={handleFinishCustomization}
+							>
+								Finalizar
+							</Button>
+						</SizeButton>
 
-					<Button
-						loading={loading}
-						type="primary"
-						margin="10px 0px 10px 0px"
-						onClick={handleFinishCustomizationLater}
-					>
-						Salvar mais tarde
-					</Button>
+						<SizeButton>
+							<Button
+								loading={loading}
+								type="link"
+								onClick={handleFinishCustomizationLater}
+							>
+								Salvar mais tarde
+							</Button>
+						</SizeButton>
+					</ContentButton>
 				</Content>
 			</Container>
 		</Layout>

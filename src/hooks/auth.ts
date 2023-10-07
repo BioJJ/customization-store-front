@@ -7,12 +7,13 @@ import { useGlobalReducer } from '../store/reducers/globalReducer/useGlobalReduc
 import { LoginRoutesEnum } from '../routes/auth.routes'
 import { UserType } from '../types/UserType'
 import { AuthUse } from '../contexts/auth'
+import { removeItemStorage } from '../functions/connections/storageProxy'
 
 export const useRequests = () => {
 	const [loading, setLoading] = useState(false)
 	const { setNotification } = useGlobalReducer()
 
-	const { addUser, LogIn } = AuthUse()
+	const { addUser, LogIn, userLogged } = AuthUse()
 
 	const authRequest = async (
 		navigate: NavigateFunction,
@@ -23,9 +24,13 @@ export const useRequests = () => {
 
 		LogIn(email, password)
 
-		setNotification('Login Realizado com sucesso!', 'success')
+		if (userLogged) {
+			setNotification('Login Realizado com sucesso!', 'success')
 
-		navigate(DashboardRoutesEnum.FIRST_SCREEN)
+			navigate(DashboardRoutesEnum.FIRST_SCREEN)
+		} else {
+			setNotification('Verifique os dados do login!', 'warning')
+		}
 
 		setLoading(false)
 	}
@@ -48,9 +53,17 @@ export const useRequests = () => {
 		setLoading(false)
 	}
 
+	const logout = (navigate: NavigateFunction) => {
+		setLoading(true)
+		removeItemStorage('@CustomizationStore:loggedUser')
+		navigate(LoginRoutesEnum.LOGIN)
+		setLoading(false)
+	}
+
 	return {
 		loading,
 		authRequest,
-		newUserRequest
+		newUserRequest,
+		logout
 	}
 }

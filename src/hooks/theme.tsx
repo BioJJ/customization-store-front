@@ -33,7 +33,7 @@ const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
 
 const ThemeProvider: React.FunctionComponent<ContentProps> = ({ children }) => {
 	const [theme, setTheme] = useState<ITheme>(() => {
-		const themeSaved = localStorage.getItem('@energy-bill:theme')
+		const themeSaved = localStorage.getItem('@CustomizationStore:theme')
 
 		if (themeSaved) {
 			return JSON.parse(themeSaved)

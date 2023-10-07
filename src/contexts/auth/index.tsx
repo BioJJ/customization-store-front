@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const AuthVerify = async () => {
 		setGlobalLoading(true)
 		try {
-			const loggedUser = await getItemStorage('@CustomizationStore:loggedUser')
+			const loggedUser = getItemStorage('@CustomizationStore:loggedUser')
 			if (loggedUser) {
 				setUserLogged(JSON.parse(loggedUser))
 
@@ -55,9 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const addUser = (user: UserType) => {
 		setLoading(true)
 
-		setUser((prevQueue) => [...prevQueue, user])
-
-		saveUserToStorage()
+		saveUserToStorage(user)
 
 		setLoading(false)
 	}
@@ -71,7 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 		if (userToLogin) {
 			setUserLogged(userToLogin)
-
+			setLogged(true)
 			setItemStorage(
 				'@CustomizationStore:loggedUser',
 				JSON.stringify(userToLogin)
@@ -83,15 +81,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 	const LogOut = () => {
 		setLoading(true)
-
+		loadStoredUser()
 		setLoading(false)
 	}
 
-	const saveUserToStorage = () => {
+	const saveUserToStorage = (user: UserType) => {
 		try {
-			setItemStorage('@CustomizationStore:Users', JSON.stringify(users))
+			const storedUsers = getItemStorage('@CustomizationStore:Users') || '[]'
+			const parsedUsers = JSON.parse(storedUsers)
+
+			const updatedUsers = [...parsedUsers, user]
+
+			setItemStorage('@CustomizationStore:Users', JSON.stringify(updatedUsers))
 		} catch (error) {
-			console.error('Erro ao salvar users:', error)
+			console.error('Erro ao salvar usuários:', error)
 		}
 	}
 
@@ -100,6 +103,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			const storeUsers = getItemStorage('@CustomizationStore:Users')
 			if (storeUsers) {
 				setUser(JSON.parse(storeUsers))
+			} else {
+				setItemStorage('@CustomizationStore:Users', JSON.stringify([]))
 			}
 		} catch (error) {
 			console.error('Erro ao carregar user salvos:', error)

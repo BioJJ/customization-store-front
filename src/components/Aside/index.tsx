@@ -25,12 +25,13 @@ import {
 import Toggle from './../Toggle'
 
 import { useTheme } from '../../hooks/theme'
-import { logout } from '../../functions/connections/auth'
+import { useRequests } from '../../hooks/auth'
 
 const Aside: React.FC = () => {
 	const navigate = useNavigate()
 	const { toggleTheme, theme } = useTheme()
 	const [open, setOpen] = useState(false)
+	const { logout } = useRequests()
 
 	const showModal = () => {
 		setOpen(true)
